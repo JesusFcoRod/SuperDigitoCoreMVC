@@ -1,0 +1,88 @@
+﻿@model ML.Usuario
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("LoginUsuario", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.Historial.Numero, "Numero")
+            <div class="input-group mb-2">
+                <span class="input-group-text"><i class="bi bi-controller"></i></span>
+                @Html.TextBoxFor(model => model.Historial.Numero, new { @class = "form-control"})
+                @Html.ValidationMessageFor(model => model.Historial.Numero, null, new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.Historial.Resultado, "Resultado")
+            <div class="input-group mb-2">
+                <span class="input-group-text"><i class="bi bi-controller"></i></span>
+                @Html.TextBoxFor(model => model.Historial.Resultado, new { @class = "form-control"})
+                @Html.ValidationMessageFor(model => model.Historial.Resultado, null, new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="glyphicon-up">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <input type="submit" value="Calcular" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@*TABLA CON TODOS LOS REGISTROS*@
+
+<h1>HISTORIAL</h1>
+
+<div class="container">
+    <div class=row>
+        <div class="text-center">
+            <h2></h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+        </div>
+    </div>
+</div>
+
+<br />
+<table class="table table-bordered table-responsive table-hover" id="table_usuarios">
+    <thead>
+        <tr class="table-secondary">
+            <td>Editar</td>
+            <td style="display :none;">id</td>
+            <td>NUMERO</td>
+            <td>RESULTADO</td>
+            <td>FECHA INGRESO</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ML.Usuario usuario in Model.Usuarios)
+        {
+            <tr>
+                <td style="text-align: center; vertical-align: middle;"><a class="btn btn-warning glyphicon  glyphicon glyphicon-cog" href="@Url.Action("Form", "Usuario", new { IdUsuario = usuario.IdUsuario})"><i class="bi bi-pencil-square" style="color: ivory"></i></a></td>
+                <td style="display :none;">@usuario.IdUsuario </td>
+                <td>@usuario</td>
+                <td>@usuario.Historial.Numero</td>
+                <td>@usuario.Historial.Resultado</td>
+                <td>@usuario.Historial.FechaIngreso</td>
+
+                <td style="text-align: center; vertical-align: middle;"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Usuario", new { idUsuario = usuario.IdUsuario})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"><i class="bi bi-eraser-fill" style="color: mintcream"></i></a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
