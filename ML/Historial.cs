@@ -12,5 +12,8 @@ namespace ML
         public int Numero { get; set; }
         public int Resultado { get; set; }
         public string FechaIngreso { get; set; }
+
+        public List<Object> Historiales { get; set; }
+        public ML.Usuario Usuario { get; set; }
     }
 }

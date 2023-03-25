@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace PL.Controllers
 {
@@ -9,11 +10,7 @@ namespace PL.Controllers
         {
             return View();
         }
-        [HttpGet]
-        public ActionResult Form(ML.Usuario usuario)
-        {
-            return View();
-        }
+
         [HttpPost]
         public ActionResult LoginUsuario(ML.Usuario usuario)
         {
@@ -22,9 +19,15 @@ namespace PL.Controllers
             if (result.Correct)
             {
                 ML.Usuario usuarioUnbox = (ML.Usuario)result.Object;
+                //SESION 
+                int IdUsuario = usuarioUnbox.IdUsuario;
+                HttpContext.Session.SetInt32("IdUsuario",IdUsuario);
+                usuarioUnbox.IdUsuario= IdUsuario;
+
                 if (usuario.Password == usuarioUnbox.Password)
                 {
-                    return RedirectToAction("Form", "Usuario");
+                    HttpContext.Session.GetInt32("IdUsuario");
+                    return RedirectToAction("Form", "SuperDigito");
                 }
                 else
                 {
@@ -40,6 +43,17 @@ namespace PL.Controllers
                 return PartialView("Modal");
             }
 
+        }
+        [HttpGet]
+        public ActionResult Form()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Form(ML.Usuario usuario)
+        {
+            return View(usuario);
         }
     }
 }

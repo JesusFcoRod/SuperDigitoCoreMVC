@@ -40,8 +40,8 @@
                     @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @id = "txtUserName"})
                     @Html.LabelFor(model => model.Password, "CONTRASEÑA: ")
                     @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @id = "txtPassword"})
-                    <input type="submit" id="submit" value="LOGIN">
-                    <input type="submit" id="submit" value="REGISTRAR">
+                    <button>LOGIN</button>
+                    <button onclick="location.href='@Url.Action("Form","Usuario")';return false;">REGISTRAR</button>
                 </div>
             </div>
         </div>

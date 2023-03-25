@@ -11,12 +11,6 @@ public partial class Usuario
 
     public string? Password { get; set; }
 
-    public int? IdHistorial { get; set; }
+    public virtual ICollection<Historial> Historials { get; } = new List<Historial>();
 
-    public virtual Historial? IdHistorialNavigation { get; set; }
-
-    //Propiedades en stored 
-    public int Numero { get; set; }
-    public int Resultado { get; set; }
-    public DateTime FechaHora { get; set; }
 }

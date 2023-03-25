@@ -1,0 +1,84 @@
+﻿@model ML.Historial
+
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>SUPER DIGITO</h1>
+
+@using (Html.BeginForm("Form", "SuperDigito", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.Numero, "Numero: ")
+            <div class="input-group mb-2">
+                <span class="input-group-text"><i class="bi bi-controller"></i></span>
+                @Html.TextBoxFor(model => model.Numero, new { @class = "form-control"})
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.Resultado, "Resultado")
+            <div class="input-group mb-2">
+                <span class="input-group-text"><i class="bi bi-controller"></i></span>
+                @Html.TextBoxFor(model => model.Resultado, new { @class = "form-control"})
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="glyphicon-up">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <input type="submit" value="Calcular" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<h1>HISTORIAL</h1>
+
+<div class="container">
+    <div class=row>
+        <div class="text-center">
+            <h2></h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+        </div>
+    </div>
+</div>
+
+<br />
+<table class="table table-bordered table-responsive table-hover" id="table_usuarios">
+    <thead>
+        <tr class="table-secondary">
+            <td style="display :none;">id</td>
+            <td class="text-center">Numero</td>
+            <td class="text-center">Resultado</td>
+            <td class="text-center">FechaHora</td>
+            <td class="text-center">Eliminar</td>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ML.Historial historial in Model.Historiales)
+        {
+            <tr>
+                <td style="display :none;">@historial.IdHistorial </td>
+                <td class="text-center">@historial.Numero</td>
+                <td class="text-center">@historial.Resultado</td>
+                <td class="text-center">@historial.FechaIngreso</td>
+                <td style="text-align: center; vertical-align: middle;"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "SuperDigito", new { IdHistorial = historial.IdHistorial})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"><i class="bi bi-eraser-fill" style="color: mintcream"></i></a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+

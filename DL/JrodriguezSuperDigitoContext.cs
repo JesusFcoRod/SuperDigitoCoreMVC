@@ -32,6 +32,10 @@ public partial class JrodriguezSuperDigitoContext : DbContext
             entity.ToTable("Historial");
 
             entity.Property(e => e.FechaHora).HasColumnType("date");
+
+            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Historials)
+                .HasForeignKey(d => d.IdUsuario)
+                .HasConstraintName("FK__Historial__IdUsu__267ABA7A");
         });
 
         modelBuilder.Entity<Usuario>(entity =>
@@ -46,10 +50,6 @@ public partial class JrodriguezSuperDigitoContext : DbContext
             entity.Property(e => e.UserName)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-
-            entity.HasOne(d => d.IdHistorialNavigation).WithMany(p => p.Usuarios)
-                .HasForeignKey(d => d.IdHistorial)
-                .HasConstraintName("FK__Usuario__IdHisto__239E4DCF");
         });
 
         OnModelCreatingPartial(modelBuilder);

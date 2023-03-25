@@ -13,5 +13,7 @@ public partial class Historial
 
     public DateTime? FechaHora { get; set; }
 
-    public virtual ICollection<Usuario> Usuarios { get; } = new List<Usuario>();
+    public int? IdUsuario { get; set; }
+
+    public virtual Usuario? IdUsuarioNavigation { get; set; }
 }
